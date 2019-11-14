@@ -3,6 +3,7 @@ import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
 import getItemsSaga from './getItemSaga';
+import addItemSaga from './addItemSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -13,6 +14,7 @@ import getItemsSaga from './getItemSaga';
 // and login triggers setting the user
 export default function* rootSaga() {
   yield takeEvery('GET_ITEMS',getItemsSaga);
+  yield takeEvery('ADD_ITEM',addItemSaga);
   yield all([
     loginSaga(),
     registrationSaga(),
