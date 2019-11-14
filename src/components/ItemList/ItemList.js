@@ -7,8 +7,13 @@ class ItemList extends Component {
         description: "",
         imageUrl: "",
     }
+
     componentDidMount() {
         this.props.dispatch({ type: "GET_ITEMS" });
+    }
+
+    deleteButton = () => {
+        console.log ('in delete')
     }
 
 
@@ -18,9 +23,14 @@ class ItemList extends Component {
                 <ul>
                     {this.props.itemsReducer.map((item, i) =>
                         <div key={i}>
+
                             <li key={i}>
                                 {item.description}
-                                <img src={item.image_url} alt=""/>
+                                <img src={item.image_url} alt="" />
+                                {item.user_id == this.props.user.id &&
+                                    <button onClick = {this.deleteButton}>Delete</button>
+                                }
+
                             </li>
                         </div>)}
                 </ul>

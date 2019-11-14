@@ -1,5 +1,6 @@
 import React from 'react';
 import ItemList from '../ItemList/ItemList';
+import Form from '../Form/Form';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -9,7 +10,9 @@ import ItemList from '../ItemList/ItemList';
 const InfoPage = () => (
   
   <div>
+    <Form />
     <ItemList />
+    
   </div>
 );
 

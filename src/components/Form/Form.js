@@ -2,16 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 
-import './App.css';
-
 class Form extends Component {
 
     state = {
         description:"",
         imageUrl:"",
+        userId: this.props.user.id,
     }
+    
   componentDidMount () {
   }
+
+
 
   handleChangeFor = (property,event) => {
     this.setState({
@@ -28,10 +30,15 @@ class Form extends Component {
     return (
       <>
       Description: <input value={this.state.description} onChange={(event) => this.handleChangeFor('description',event)}/>
-      Image Url: <input value={this.state.imageUrl} onChange={(event) => this.handleChangeFor('description',event)}/>
+      Image Url: <input value={this.state.imageUrl} onChange={(event) => this.handleChangeFor('imageUrl',event)}/>
       <button onClick={this.addItem}>Add Item</button>
+
+      <pre>{JSON.stringify(this.state, null, 2)}</pre>
+
       </>
   )}
 }
 
-export default connect()(Form);
+const map = reduxState => reduxState
+
+export default connect(map)(Form);
