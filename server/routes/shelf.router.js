@@ -1,5 +1,6 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
 /**
@@ -21,10 +22,10 @@ router.get('/', (req, res) => {
 /**
  * Add an item for the logged in user to the shelf
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     const queryText = 'INSERT INTO "item"("description", "image_url", "user_id") VALUES ($1, $2, $3);';
 
-    pool.query(queryText, [req.body.description, req.body.imageUrl, req.body.userId])
+    pool.query(queryText, [req.body.description, req.body.imageUrl, req.user.id])
         .then(result => {
             res.sendStatus(200)
         }).catch(error => {
@@ -37,8 +38,15 @@ router.post('/', (req, res) => {
 /**
  * Delete an item if it's something the logged in user added
  */
-router.delete('/:id', (req, res) => {
-
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = 'DELETE FROM "item" WHERE "id" = $1;';
+    pool.query(queryText, [req.params.id])
+    .then(() => {
+        res.sendStatus(200)
+    }).catch(error => {
+        console.log('error in delete', error)
+        res.sendStatus(500)
+    })
 });
 
 

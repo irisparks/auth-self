@@ -12,8 +12,9 @@ class ItemList extends Component {
         this.props.dispatch({ type: "GET_ITEMS" });
     }
 
-    deleteButton = () => {
-        console.log ('in delete')
+    deleteButton = (item) => {
+        console.log('delete')
+        this.props.dispatch({type: "DELETE_ITEM", payload: item})
     }
 
 
@@ -27,8 +28,8 @@ class ItemList extends Component {
                             <li key={i}>
                                 {item.description}
                                 <img src={item.image_url} alt="" />
-                                {item.user_id == this.props.user.id &&
-                                    <button onClick = {this.deleteButton}>Delete</button>
+                                {item.user_id === this.props.user.id &&
+                                    <button onClick = {() => this.deleteButton(item.id)}>Delete</button>
                                 }
 
                             </li>

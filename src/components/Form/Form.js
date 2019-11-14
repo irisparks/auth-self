@@ -7,7 +7,6 @@ class Form extends Component {
     state = {
         description:"",
         imageUrl:"",
-        userId: this.props.user.id,
     }
     
   componentDidMount () {
