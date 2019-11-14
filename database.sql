@@ -15,3 +15,7 @@ CREATE TABLE "item" (
     "image_url" VARCHAR (2083),
     "user_id" INT REFERENCES "user"
 );
+
+Insert INTO item(description,image_url) VALUES("test image","http://www.gamasutra.com/db_area/images/news/2018/Jun/320213/supermario64thumb1.jpg");
+Insert INTO item(description,image_url) VALUES("test image","http://www.gamasutra.com/db_area/images/news/2018/Jun/320213/supermario64thumb1.jpg");
+Insert INTO item(description,image_url) VALUES("test image","http://www.gamasutra.com/db_area/images/news/2018/Jun/320213/supermario64thumb1.jpg");
