@@ -7,7 +7,7 @@ const router = express.Router();
  * Get all of the items on the shelf
  */
 router.get('/', (req, res) => {
-    const queryText = `SELECT * FROM "item";`;
+    const queryText = `SELECT * FROM "item" ORDER BY "id" DESC;`;
 
     pool.query(queryText)
         .then(result => {
@@ -53,8 +53,15 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 /**
  * Update an item if it's something the logged in user added
  */
-router.put('/:id', (req, res) => {
-
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = 'UPDATE "item" SET "description" = $1, "image_url" = $2 WHERE "id" = $3;';
+    pool.query(queryText, [req.body.description, req.body.imageUrl, req.params.id])
+    .then(() => {
+        res.sendStatus(200)
+    }).catch(error => {
+        console.log('error in put', error)
+        res.sendStatus(500)
+    })
 });
 
 

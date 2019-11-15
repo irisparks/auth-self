@@ -32,7 +32,6 @@ class Form extends Component {
       Image Url: <input value={this.state.imageUrl} onChange={(event) => this.handleChangeFor('imageUrl',event)}/>
       <button onClick={this.addItem}>Add Item</button>
 
-      <pre>{JSON.stringify(this.state, null, 2)}</pre>
 
       </>
   )}

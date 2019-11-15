@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Item from '../Item/Item';
 
 class ItemList extends Component {
 
     state = {
         description: "",
         imageUrl: "",
+        edit: false
     }
 
     componentDidMount() {
@@ -13,9 +15,26 @@ class ItemList extends Component {
     }
 
     deleteButton = (item) => {
-        console.log('delete')
         this.props.dispatch({type: "DELETE_ITEM", payload: item})
     }
+    editButton = () => {
+        this.setState({
+            ...this.state,
+            edit: true
+        })
+    }
+
+    handleChangeFor = (property, event) => {
+        this.setState({
+            ...this.state,
+            [property]:event.target.value
+        })
+      }
+
+    saveButton = (item) => {
+        this.props.dispatch({type: "EDIT_ITEM", payload: item})
+       
+    };
 
 
     render() {
@@ -26,16 +45,12 @@ class ItemList extends Component {
                         <div key={i}>
 
                             <li key={i}>
-                                {item.description}
-                                <img src={item.image_url} alt="" />
-                                {item.user_id === this.props.user.id &&
-                                    <button onClick = {() => this.deleteButton(item.id)}>Delete</button>
-                                }
+                                <Item item = {item}/>
+                                
 
                             </li>
                         </div>)}
                 </ul>
-                <pre>{JSON.stringify(this.props, null, 2)}</pre>
             </>
         )
     }
