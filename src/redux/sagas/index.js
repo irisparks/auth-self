@@ -5,6 +5,7 @@ import userSaga from './userSaga';
 import getItemsSaga from './getItemSaga';
 import addItemSaga from './addItemSaga';
 import deleteItemSaga from './deleteItemSaga';
+import editItemSaga from './editItemSaga';
 
 
 // rootSaga is the primary saga.
@@ -15,6 +16,7 @@ import deleteItemSaga from './deleteItemSaga';
 // the registration triggers a login
 // and login triggers setting the user
 export default function* rootSaga() {
+  yield takeEvery('EDIT_ITEM', editItemSaga)
   yield takeEvery('DELETE_ITEM', deleteItemSaga)
   yield takeEvery('GET_ITEMS',getItemsSaga);
   yield takeEvery('ADD_ITEM',addItemSaga);
